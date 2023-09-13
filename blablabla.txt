@@ -1,0 +1,86 @@
+Challenge 1 {
+CREATE DATABASE schoolDB;
+USE schoolDB;
+SHOW DATABASES; 
+}
+
+Challenge 2 {
+    USE schoolDB;
+    
+    CREATE TABLE teachers (
+    id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    subject VARCHAR(50)
+                        );
+    SHOW TABLES;
+    DESCRIBE teachers;
+    INSERT INTO teachers(id, first_name, last_name, subject)
+    VALUES (1, 'John', 'Doe', 'Math'),
+       (2, 'Jane', 'Smith', 'Science');
+}
+
+Challenge 3{
+    SELECT * FROM teachers;
+    SELECT first_name, subject FROM teachers;
+}
+
+Challenge 4{
+    CREATE TABLE students (
+    id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    teacher_id INT
+    );
+
+    INSERT INTO students(id, first_name, last_name, teacher_id)
+    VALUES (1, 'Alice', 'Brown', 1),
+    (2, 'Bob', 'Johnson', 2);
+
+    SELECT students.first_name AS student_name, teachers.first_name AS teacher_name
+    FROM students
+    LEFT JOIN teachers ON students.teacher_id = teachers.id
+    UNION ALL
+    SELECT students.first_name AS student_name, teachers.first_name AS teacher_name
+    FROM students
+    RIGHT JOIN teachers ON students.teacher_id = teachers.id;
+
+}
+
+
+Challenge 5{
+    CREATE TABLE Authors (
+    AuthorID INT PRIMARY KEY,
+    FirstName VARCHAR(255),
+    LastName VARCHAR(255),
+    DateOfBirth DATE
+);
+
+    CREATE TABLE Publishers (
+    PublisherID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    PhoneNumber VARCHAR(20)
+);
+
+    CREATE TABLE Books (
+    ID INT PRIMARY KEY,
+    Title VARCHAR(255),
+    PublicationYear DATE,
+    AuthorID INT,
+    PublisherID INT,
+    FOREIGN KEY (AuthorID) REFERENCES Authors(AuthorID),
+    FOREIGN KEY (PublisherID) REFERENCES Publishers(PublisherID)
+);
+
+INSERT INTO Authors (AuthorID, FirstName, LastName, DateOfBirth)
+VALUES
+    (1, 'J.K.', 'Rowling', '1965-07-31'),
+    (2, 'George R.R.', 'Martin', '1948-09-20'),
+    (3, 'Harper', 'Lee', '1926-04-28');
+
+INSERT INTO Books (ID, Title, PublicationYear, AuthorID, PublisherID)
+VALUES
+    (101, 'Harry Potter and the Sorcerer''s Stone', '1997-06-26', 1, 1),
+    (102, 'A Game of Thrones', '1996-08-06', 2, 2),
+    (103, 'To Kill a Mockingbird', '1960-07-11', 3, 3);
+}
