@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const port = 5000;
 
-app.get('/', (req, res) => {
-    res.send('Hello, Express!');
+app.get('/api', (req, res) => {
+    res.send('Welcome to the API route!');
 });
 
 app.listen(port, () => {
